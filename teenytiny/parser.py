@@ -48,7 +48,7 @@ class ASTBuilder(Transformer):
         return Input(str(items[1]), _loc(items[0]))
 
     def let_stmt(self, items):
-        return Let(str(items[1]), items[2], _loc(items[0]))
+        return Let(str(items[0]), items[1], _loc(items[0]))
 
     def if_stmt(self, items):
         # IF, comparison, THEN, body..., ENDIF, _NL

@@ -9,14 +9,14 @@ def test_fibonacci_compiles():
     source = '''\
 PRINT "How many fibonacci numbers do you want?"
 INPUT nums
-LET a = 0
-LET b = 1
+a = 0
+b = 1
 WHILE nums > 0 REPEAT
     PRINT a
-    LET c = a + b
-    LET a = b
-    LET b = c
-    LET nums = nums - 1
+    c = a + b
+    a = b
+    b = c
+    nums = nums - 1
 ENDWHILE
 '''
     result = COMPILER.compile(source)
@@ -27,11 +27,11 @@ ENDWHILE
 
 def test_nested_if_and_while():
     source = '''\
-LET x = 5
+x = 5
 IF x >= 5 THEN
     PRINT "yes"
     WHILE x > 0 REPEAT
-        LET x = x - 1
+        x = x - 1
     ENDWHILE
 ENDIF
 '''
@@ -41,7 +41,7 @@ ENDIF
 
 
 def test_parentheses_are_supported():
-    result = COMPILER.compile("LET x = (2 + 3) * 4\nPRINT x\n")
+    result = COMPILER.compile("x = (2 + 3) * 4\nPRINT x\n")
     assert "((2 + 3) * 4)" in result.c_source
 
 
@@ -73,13 +73,13 @@ def test_duplicate_label_is_rejected():
 
 
 def test_comments_and_blank_lines():
-    result = COMPILER.compile("# comment\n\nLET x = 2 # inline\nPRINT x\n")
+    result = COMPILER.compile("# comment\n\nx = 2 # inline\nPRINT x\n")
     assert "float x;" in result.c_source
 
 
 def test_bad_syntax_is_rejected():
     try:
-        COMPILER.compile("LET = 4\n")
+        COMPILER.compile("= 4\n")
     except ParseError:
         pass
     else:

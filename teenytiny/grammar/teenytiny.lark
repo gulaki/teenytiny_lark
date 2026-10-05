@@ -15,7 +15,7 @@ program: (_NL | statement)*
 
 print_stmt: PRINT (STRING | expression) _NL
 input_stmt: INPUT IDENT _NL
-let_stmt: LET IDENT "=" expression _NL
+let_stmt: IDENT "=" expression _NL
 
 if_stmt: IF comparison THEN _NL statement* ENDIF _NL
 while_stmt: WHILE comparison REPEAT _NL statement* ENDWHILE _NL
@@ -41,7 +41,6 @@ COMP_OP: "==" | "!=" | ">=" | "<=" | ">" | "<"
 // prevents keywords from stealing an IDENT where an identifier is expected.
 PRINT: "PRINT"
 INPUT: "INPUT"
-LET: "LET"
 IF: "IF"
 THEN: "THEN"
 ENDIF: "ENDIF"
