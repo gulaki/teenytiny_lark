@@ -1,0 +1,62 @@
+// Teeny Tiny grammar.
+// Keep syntax here, not in Python. This is the primary language-definition file.
+
+start: program
+
+program: (_NL | statement)*
+
+?statement: print_stmt
+          | input_stmt
+          | let_stmt
+          | if_stmt
+          | while_stmt
+          | label_stmt
+          | goto_stmt
+
+print_stmt: PRINT (STRING | expression) _NL
+input_stmt: INPUT IDENT _NL
+let_stmt: LET IDENT "=" expression _NL
+
+if_stmt: IF comparison THEN _NL statement* ENDIF _NL
+while_stmt: WHILE comparison REPEAT _NL statement* ENDWHILE _NL
+
+label_stmt: LABEL IDENT _NL
+goto_stmt: GOTO IDENT _NL
+
+comparison: expression COMP_OP expression
+
+?expression: term (ADD_OP term)*
+?term: unary (MUL_OP unary)*
+?unary: SIGN? primary
+?primary: NUMBER        -> number
+        | IDENT         -> variable
+        | "(" expression ")" -> grouped
+
+ADD_OP: "+" | "-"
+MUL_OP: "*" | "/"
+SIGN: "+" | "-"
+COMP_OP: "==" | "!=" | ">=" | "<=" | ">" | "<"
+
+// Keyword terminals intentionally remain explicit. Lark's contextual lexer
+// prevents keywords from stealing an IDENT where an identifier is expected.
+PRINT: "PRINT"
+INPUT: "INPUT"
+LET: "LET"
+IF: "IF"
+THEN: "THEN"
+ENDIF: "ENDIF"
+WHILE: "WHILE"
+REPEAT: "REPEAT"
+ENDWHILE: "ENDWHILE"
+LABEL: "LABEL"
+GOTO: "GOTO"
+
+STRING: /"([^"\\\n\r]|\\["\\nrt])*"/
+NUMBER: /(?:0|[1-9][0-9]*)(?:\.[0-9]+)?/
+IDENT: /[A-Za-z_][A-Za-z0-9_]*/
+
+COMMENT: /#[^\n\r]*/
+_NL: /\r?\n/
+%ignore /[ \t\r]+/
+%ignore COMMENT
+
