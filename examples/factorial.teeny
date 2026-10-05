@@ -1,0 +1,13 @@
+PRINT "Enter number to calculate factorial:"
+INPUT num
+PRINT ""
+
+i = 1
+fact = 1
+
+WHILE i <= num REPEAT
+    fact = fact * i
+    i = i + 1
+ENDWHILE
+PRINT "Factorial = "
+PRINT fact

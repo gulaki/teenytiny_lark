@@ -1,0 +1,9 @@
+i = 1
+PRINT "Enter number: "
+INPUT N
+LABEL loop
+    PRINT i
+    i = i + 1
+IF i <= N THEN 
+    GOTO loop 
+ENDIF
