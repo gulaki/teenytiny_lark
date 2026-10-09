@@ -18,7 +18,7 @@ input_stmt: INPUT IDENT _NL
 let_stmt: IDENT "=" expression _NL
 
 if_stmt: IF comparison THEN _NL statement* ENDIF _NL
-while_stmt: WHILE comparison REPEAT _NL statement* ENDWHILE _NL
+while_stmt: WHILE comparison _NL statement* ENDWHILE _NL
 
 label_stmt: LABEL IDENT _NL
 goto_stmt: GOTO IDENT _NL
@@ -45,7 +45,6 @@ IF: "if"
 THEN: "then"
 ENDIF: "endif"
 WHILE: "while"
-REPEAT: "repeat"
 ENDWHILE: "endwhile"
 LABEL: "label"
 GOTO: "goto"
