@@ -39,16 +39,16 @@ COMP_OP: "==" | "!=" | ">=" | "<=" | ">" | "<"
 
 // Keyword terminals intentionally remain explicit. Lark's contextual lexer
 // prevents keywords from stealing an IDENT where an identifier is expected.
-PRINT: "PRINT"
-INPUT: "INPUT"
-IF: "IF"
-THEN: "THEN"
-ENDIF: "ENDIF"
-WHILE: "WHILE"
-REPEAT: "REPEAT"
-ENDWHILE: "ENDWHILE"
-LABEL: "LABEL"
-GOTO: "GOTO"
+PRINT: "print"
+INPUT: "input"
+IF: "if"
+THEN: "then"
+ENDIF: "endif"
+WHILE: "while"
+REPEAT: "repeat"
+ENDWHILE: "endwhile"
+LABEL: "label"
+GOTO: "goto"
 
 STRING: /"([^"\\\n\r]|\\["\\nrt])*"/
 NUMBER: /(?:0|[1-9][0-9]*)(?:\.[0-9]+)?/

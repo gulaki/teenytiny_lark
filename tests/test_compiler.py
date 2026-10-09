@@ -7,17 +7,17 @@ COMPILER = Compiler()
 
 def test_fibonacci_compiles():
     source = '''\
-PRINT "How many fibonacci numbers do you want?"
-INPUT nums
+print "How many fibonacci numbers do you want?"
+input nums
 a = 0
 b = 1
-WHILE nums > 0 REPEAT
-    PRINT a
+while nums > 0 repeat
+    print a
     c = a + b
     a = b
     b = c
     nums = nums - 1
-ENDWHILE
+endwhile
 '''
     result = COMPILER.compile(source)
     assert "#include <stdio.h>" in result.c_source
@@ -28,12 +28,12 @@ ENDWHILE
 def test_nested_if_and_while():
     source = '''\
 x = 5
-IF x >= 5 THEN
-    PRINT "yes"
-    WHILE x > 0 REPEAT
+if x >= 5 then
+    print "yes"
+    while x > 0 repeat
         x = x - 1
-    ENDWHILE
-ENDIF
+    endwhile
+endif
 '''
     result = COMPILER.compile(source)
     assert "if ((x >= 5))" in result.c_source
@@ -41,13 +41,13 @@ ENDIF
 
 
 def test_parentheses_are_supported():
-    result = COMPILER.compile("x = (2 + 3) * 4\nPRINT x\n")
+    result = COMPILER.compile("x = (2 + 3) * 4\nprint x\n")
     assert "((2 + 3) * 4)" in result.c_source
 
 
 def test_undeclared_read_is_rejected():
     try:
-        COMPILER.compile("PRINT x\n")
+        COMPILER.compile("print x\n")
     except SemanticError as exc:
         assert "undeclared variable" in str(exc)
     else:
@@ -56,7 +56,7 @@ def test_undeclared_read_is_rejected():
 
 def test_undeclared_goto_is_rejected():
     try:
-        COMPILER.compile("GOTO nowhere\n")
+        COMPILER.compile("goto nowhere\n")
     except SemanticError as exc:
         assert "undeclared label" in str(exc)
     else:
@@ -65,7 +65,7 @@ def test_undeclared_goto_is_rejected():
 
 def test_duplicate_label_is_rejected():
     try:
-        COMPILER.compile("LABEL x\nLABEL x\n")
+        COMPILER.compile("label x\nlabel x\n")
     except SemanticError as exc:
         assert "duplicate label" in str(exc)
     else:
@@ -73,7 +73,7 @@ def test_duplicate_label_is_rejected():
 
 
 def test_comments_and_blank_lines():
-    result = COMPILER.compile("# comment\n\nx = 2 # inline\nPRINT x\n")
+    result = COMPILER.compile("# comment\n\nx = 2 # inline\nprint x\n")
     assert "float x;" in result.c_source
 
 

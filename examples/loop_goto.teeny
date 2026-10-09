@@ -1,9 +1,9 @@
 i = 1
-PRINT "Enter number: "
-INPUT N
-LABEL loop
-    PRINT i
+print "Enter number: "
+input N
+label loop
+    print i
     i = i + 1
-IF i <= N THEN 
-    GOTO loop 
-ENDIF
+if i <= N then
+    goto loop
+endif

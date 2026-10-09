@@ -1,13 +1,13 @@
-PRINT "Enter number to calculate factorial:"
-INPUT num
-PRINT ""
+print "Enter number to calculate factorial:"
+input num
+print ""
 
 i = 1
 fact = 1
 
-WHILE i <= num REPEAT
+while i <= num repeat
     fact = fact * i
     i = i + 1
-ENDWHILE
-PRINT "Factorial = "
-PRINT fact
+endwhile
+print "Factorial = "
+print fact
